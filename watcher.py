@@ -32,11 +32,9 @@ def check_previous_status():
 	return status == "online"
 
 def write_status(s):
-	file = open("status.txt", "r+")
-	file.truncate(0)
-	file.close
-	file = open("status.txt", "r+")
+	file = open("status.txt", "w")
 	file.write(s)
+	file.close()
 	return
 
 def write_to_registry(s, o, l, e, t, tt):
