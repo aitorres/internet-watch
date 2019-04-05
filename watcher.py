@@ -42,7 +42,7 @@ def write_to_registry(s, o, l, e, t, tt):
 	file.write("### Status change: " + ("online" if s else "offline") + "\n")
 	file.write("Change occured at " + t + " with " + str(o) + " correct hits, " + str(l) + " lost pings and  other" + str(e) + " errors, of a total of " + str(tt) + " tries." + "\n\n")
 
-def is_online(ok):
+def is_online(ok, tries):
 	return ((ok/tries)*100) >= 75
 
 def main():
@@ -54,7 +54,7 @@ def main():
 	time = str(now.year) + "-" + str(now.month) + "-" + str(now.day) + " " + str(now.hour) + ":" + str(now.minute)
 
 	oks, losts, errors = count_results(pings)
-	current_status = is_online(oks)
+	current_status = is_online(oks, tries)
 	previous_status = check_previous_status()
 
 	if current_status != previous_status:
