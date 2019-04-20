@@ -4,7 +4,7 @@ import os
 import datetime
 
 def ping():
-	hostname = "google.com" 
+	hostname = "google.com"
 	response = os.system("ping -c 1 " + hostname + " > /dev/null 2>&1")
 	return response
 
@@ -25,7 +25,7 @@ def count_results(l):
 	b = count_numbers(256, l)
 	return a, b, len(l) - (a+b)
 
-def check_previous_status():
+def was_online():
 	file = open("status.txt", "r")
 	status = file.readline()
 	file.close()
@@ -40,7 +40,7 @@ def write_status(s):
 def write_to_registry(s, o, l, e, t, tt):
 	file = open("registry.md", "a")
 	file.write("### Status change: " + ("online" if s else "offline") + "\n")
-	file.write("Change occured at " + t + " with " + str(o) + " correct hits, " + str(l) + " lost pings and  other" + str(e) + " errors, of a total of " + str(tt) + " tries." + "\n\n")
+	file.write("Change occured at " + t + " with " + str(o) + " correct hits, " + str(l) + " lost pings and other " + str(e) + " errors, of a total of " + str(tt) + " tries." + "\n\n")
 
 def is_online(ok, tries):
 	return ((ok/tries)*100) >= 75
@@ -55,7 +55,7 @@ def main():
 
 	oks, losts, errors = count_results(pings)
 	current_status = is_online(oks, tries)
-	previous_status = check_previous_status()
+	previous_status = was_online()
 
 	if current_status != previous_status:
 		if current_status:
